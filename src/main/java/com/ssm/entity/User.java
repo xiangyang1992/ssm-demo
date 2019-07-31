@@ -6,7 +6,7 @@ import java.sql.Date;
 public class User implements Serializable {
     private Long id;
     private String userName;
-    private String passwordMd5;
+    private String password;
     private String userToken;
     /**
      * 是否已删除 0未删除 1已删除
@@ -14,10 +14,10 @@ public class User implements Serializable {
     private int isDeleted;
     private Date createTime;
 
-    public User(Long id, String userName, String passwordMd5, String userToken, int isDeleted, Date createTime) {
+    public User(Long id, String userName, String password, String userToken, int isDeleted, Date createTime) {
         this.id = id;
         this.userName = userName;
-        this.passwordMd5 = passwordMd5;
+        this.password = password;
         this.userToken = userToken;
         this.isDeleted = isDeleted;
         this.createTime = createTime;
@@ -31,7 +31,7 @@ public class User implements Serializable {
         return "{" +
                 "id=" + id +
                 ", userName='" + userName + '\'' +
-                ", passwordMd5='" + passwordMd5 + '\'' +
+                ", password='" + password + '\'' +
                 ", userToken='" + userToken + '\'' +
                 ", isDeleted=" + isDeleted +
                 ", createTime=" + createTime +
@@ -54,18 +54,17 @@ public class User implements Serializable {
         this.userName = userName;
     }
 
-    public String getPasswordMd5() {
-        return passwordMd5;
-    }
-
-    public void setPasswordMd5(String passwordMd5) {
-        this.passwordMd5 = passwordMd5;
+    public String getpassword() {
+        return password;
     }
 
     public String getUserToken() {
         return userToken;
     }
 
+    public void setPassword(String password) {
+        this.password = password;
+    }
     public void setUserToken(String userToken) {
         this.userToken = userToken;
     }

@@ -13,6 +13,16 @@ public interface AdminUserDao {
      */
     User getAdminUserByUserNameAndPassword(@Param("userName") String userName, @Param("passwordMD5") String passwordMD5);
 
-    User getAdminUserByToken(@RequestParam("token")String token);
+
+    User getAdminUserByToken(String token);
+
+    /**
+     * 更新用户token值
+     *
+     * @param userId
+     * @param newToken
+     * @return
+     */
+    int updateUserToken(@Param("userId") Long userId, @Param("newToken") String newToken);
 
 }
