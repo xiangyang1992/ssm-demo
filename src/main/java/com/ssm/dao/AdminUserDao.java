@@ -1,8 +1,12 @@
 package com.ssm.dao;
 
 import com.ssm.entity.User;
+import com.ssm.utils.PageUtil;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import java.util.List;
+import java.util.Map;
 
 public interface AdminUserDao {
 
@@ -24,5 +28,15 @@ public interface AdminUserDao {
      * @return
      */
     int updateUserToken(@Param("userId") Long userId, @Param("newToken") String newToken);
+
+    /**
+     * 查询用户列表
+     */
+    List<User> findAdminUsers(Map param);
+
+    /**
+     * 查询用户总数
+     */
+    int getTotalCount(Map param);
 
 }

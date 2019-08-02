@@ -1,5 +1,6 @@
 package com.ssm.service.Impl;
 
+import com.ssm.common.PageResult;
 import com.ssm.dao.AdminUserDao;
 import com.ssm.entity.User;
 import com.ssm.service.AdminUserService;
@@ -12,11 +13,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.NumberUtils;
 
+import java.util.List;
+import java.util.Map;
+
 @Service
 public class AdminUserServiceImpl implements AdminUserService {
 
     @Autowired
     private AdminUserDao adminUserDao;
+
     @Override
     public User findByPwdAndUsername(String userName,String password) {
         return adminUserDao.getAdminUserByUserNameAndPassword(userName,password);
@@ -27,10 +32,6 @@ public class AdminUserServiceImpl implements AdminUserService {
         return adminUserDao.getAdminUserByToken(token);
     }
 
-    @Override
-    public String getAdminUserPage(PageUtil page) {
-        return null;
-    }
 
     @Override
     public User updateTokenAndLogin(String userName, String password) {
@@ -43,6 +44,14 @@ public class AdminUserServiceImpl implements AdminUserService {
             }
         }
         return null;
+    }
+
+    @Override
+    public PageResult getAdminUserByPage(PageUtil pageUtil) {
+        List<User> users = adminUserDao.findAdminUsers(pageUtil);
+        int total = adminUserDao.getTotalCount(pageUtil);
+        PageResult pageResult = new PageResult(users,total, pageUtil.getLimit(), pageUtil.getPage());
+        return pageResult;
     }
 
     public String getNewToken(String session, Long userId) {

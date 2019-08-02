@@ -1,6 +1,7 @@
 package com.ssm.controller;
 
 import com.ssm.common.Constants;
+import com.ssm.common.PageResult;
 import com.ssm.common.Result;
 import com.ssm.common.ResultGenerator;
 import com.ssm.entity.User;
@@ -34,18 +35,13 @@ public class LoginController {
         return result;
     }
 
-
-    /**
-     * 列表
-     */
-
-    @RequestMapping(value = "/list")
-    public Result list(@RequestParam Map<String, Object> params) {
-        if (StringUtils.isEmpty(params.get("page")) || StringUtils.isEmpty(params.get("limit"))) {
+    @RequestMapping(value = "/list",method = RequestMethod.GET)
+    public Result GetUser(@RequestParam Map<String, Object> param) {
+        if (StringUtils.isEmpty(param.get("page")) || StringUtils.isEmpty(param.get("limit"))) {
             return ResultGenerator.genErrorResult(Constants.RESULT_CODE_PARAM_ERROR, "参数异常");
         }
-        //查询列表数据
-        PageUtil page = new PageUtil(params);
-        return ResultGenerator.genSuccessResult(adminUserService.getAdminUserPage(page));
+        PageUtil pageUtil = new PageUtil(param);
+        return ResultGenerator.genSuccessResult(adminUserService.getAdminUserByPage(pageUtil));
     }
+
 }
